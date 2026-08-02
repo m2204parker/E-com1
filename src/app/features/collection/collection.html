@@ -1,0 +1,70 @@
+<section class="pl-collection">
+  <div class="pl-container">
+    <app-breadcrumb></app-breadcrumb>
+    <app-collection-header></app-collection-header>
+  </div>
+
+  <div class="pl-container pl-collection__body">
+    <aside class="pl-collection__sidebar">
+      @if (store.isInitialLoading()) {
+        <div class="pl-skeleton" style="height: 600px"></div>
+      } @else {
+        <app-filter-sidebar></app-filter-sidebar>
+      }
+    </aside>
+
+    <main class="pl-collection__main">
+      <app-sort-bar></app-sort-bar>
+
+      @if (store.loadError()) {
+        <div class="pl-collection__error">
+          <p>{{ store.loadError() }}</p>
+          <button (click)="store.load()">Try again</button>
+        </div>
+      } @else {
+        <app-product-grid></app-product-grid>
+      }
+
+      @if (store.hasMore() && !store.loadError()) {
+        <div class="pl-collection__more">
+          <button
+            class="pl-collection__more-btn"
+            (click)="store.loadMore()"
+            [disabled]="store.isLoadingMore()"
+          >
+            @if (store.isLoadingMore()) {
+              Loading&hellip;
+            } @else {
+              Show more
+            }
+          </button>
+        </div>
+      }
+    </main>
+  </div>
+</section>
+
+@if (store.isMobileFiltersOpen()) {
+  <div class="pl-drawer-backdrop" (click)="store.setMobileFiltersOpen(false)"></div>
+  <aside class="pl-mobile-filters" role="dialog" aria-modal="true" aria-label="Filters">
+    <div class="pl-mobile-filters__head">
+      <span class="pl-mobile-filters__title">Filters</span>
+      <button
+        class="pl-mobile-filters__close"
+        (click)="store.setMobileFiltersOpen(false)"
+        aria-label="Close filters"
+      >
+        <app-icon name="close" [size]="20"></app-icon>
+      </button>
+    </div>
+    <div class="pl-mobile-filters__body">
+      <app-filter-sidebar></app-filter-sidebar>
+    </div>
+    <button
+      class="pl-mobile-filters__apply"
+      (click)="store.setMobileFiltersOpen(false)"
+    >
+      Apply Filters ({{ store.totalCount() }})
+    </button>
+  </aside>
+}

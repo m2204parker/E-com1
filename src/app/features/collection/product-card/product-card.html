@@ -1,0 +1,68 @@
+<article class="pl-card">
+  <div class="pl-card__media">
+    <a class="pl-card__link" href="#">
+      <app-lazy-image
+        [src]="product().images[0].src"
+        [alt]="product().title"
+        [hoverSrc]="product().images.length > 1 ? product().images[1].src : null"
+        [eager]="eager()"
+        [width]="810"
+        [aspectRatio]="'4 / 5'"
+      ></app-lazy-image>
+    </a>
+
+    @if (product().badge) {
+      <span class="pl-card__badge">{{ product().badge }}</span>
+    }
+    @if (discount()) {
+      <span class="pl-card__discount">-{{ discount() }}%</span>
+    }
+
+    <button
+      class="pl-card__wish"
+      [attr.aria-label]="isWishlisted() ? 'Remove from wishlist' : 'Add to wishlist'"
+      (click)="toggleWishlist()"
+    >
+      <app-icon
+        [name]="isWishlisted() ? 'heart-filled' : 'heart'"
+        [size]="18"
+      ></app-icon>
+    </button>
+  </div>
+
+  <div class="pl-card__body">
+    @if (product().rating.average) {
+      <p class="pl-card__rating">
+        <app-icon name="star" [size]="12"></app-icon>
+        {{ product().rating.average }}
+        <span>|</span>
+        {{ product().rating.count }}
+      </p>
+    }
+
+    <a class="pl-card__title" href="#">{{ product().title }}</a>
+
+    <p class="pl-card__price">
+      <span class="pl-card__price-sale">
+        {{ formatPrice(product().price.current) }}
+      </span>
+      @if (product().price.compareAt) {
+        <del class="pl-card__price-regular">
+          {{ compareAtLabel(product()) }}
+        </del>
+      }
+    </p>
+
+    <p class="pl-card__hint">select size</p>
+
+    <button class="pl-card__add" (click)="addToCart()">
+      @if (added()) {
+        <app-icon name="check" [size]="14"></app-icon>
+        Added
+      } @else {
+        <app-icon name="plus" [size]="14"></app-icon>
+        Add
+      }
+    </button>
+  </div>
+</article>

@@ -1,0 +1,48 @@
+<div
+  #frame
+  class="pl-lazy"
+  [style.aspect-ratio]="aspectRatio()"
+  [style.border-radius]="radius()"
+  (mouseenter)="onMouseEnter()"
+  (mouseleave)="onMouseLeave()"
+>
+  @if (status() !== 'loaded') {
+    <div
+      class="pl-lazy__lqip"
+      [class.pl-lazy__lqip--blur]="status() === 'loading'"
+      [class.pl-skeleton]="status() === 'idle'"
+      [style.background-image]="placeholderStyle()['background-image']"
+      aria-hidden="true"
+    ></div>
+  }
+
+  @if (status() === 'error') {
+    <div class="pl-lazy__error" aria-hidden="true">
+      <app-icon name="close" [size]="22"></app-icon>
+    </div>
+  }
+
+  @if (status() === 'loaded') {
+    <img
+      class="pl-lazy__img pl-fade-in"
+      [src]="responsive().src"
+      [srcset]="responsive().srcset"
+      [sizes]="sizes()"
+      [alt]="alt()"
+      [attr.fetchpriority]="fetchPriority()"
+      [attr.width]="responsive().width"
+      [attr.height]="Math.round(responsive().width * 5 / 4)"
+      loading="lazy"
+      decoding="async"
+    />
+  }
+
+  @if (status() === 'loaded' && hoverUrl() && isHovering()) {
+    <img
+      class="pl-lazy__img pl-lazy__img--hover pl-fade-in"
+      [src]="hoverUrl()"
+      [alt]="alt()"
+      decoding="async"
+    />
+  }
+</div>

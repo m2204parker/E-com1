@@ -1,0 +1,155 @@
+<header class="pl-header" (mouseleave)="onNavLeave()">
+  <div class="pl-header__row">
+    <button
+      class="pl-header__icon-btn pl-header__burger"
+      (click)="mobileMenuOpen.set(true)"
+      aria-label="Open menu"
+    >
+      <app-icon name="menu" [size]="22"></app-icon>
+    </button>
+
+    <a class="pl-header__logo" routerLink="/" (click)="onNavLeave()">POWERLOOK</a>
+
+    <nav class="pl-header__nav" aria-label="Main">
+      @for (item of navItems; track item.label) {
+        <div
+          class="pl-header__nav-item"
+          (mouseenter)="onNavEnter(item.label)"
+        >
+          @if (item.mega) {
+            <button
+              class="pl-header__nav-link"
+              [class.pl-header__nav-link--active]="activeMega() === item.label"
+            >
+              {{ item.label }}
+              <app-icon name="chevron-down" [size]="14"></app-icon>
+            </button>
+          } @else {
+            <a class="pl-header__nav-link" [href]="item.href">{{ item.label }}</a>
+          }
+        </div>
+      }
+    </nav>
+
+    <div class="pl-header__actions">
+      <button
+        class="pl-header__icon-btn"
+        (click)="searchOpen.set(true)"
+        aria-label="Search"
+      >
+        <app-icon name="search" [size]="20"></app-icon>
+      </button>
+      <button class="pl-header__icon-btn pl-header__icon-btn--desktop" aria-label="Wishlist">
+        <app-icon name="heart" [size]="20"></app-icon>
+        @if (shopping.wishlistCount()) {
+          <span class="pl-header__badge">{{ shopping.wishlistCount() }}</span>
+        }
+      </button>
+      <button class="pl-header__icon-btn" aria-label="Cart">
+        <app-icon name="cart" [size]="20"></app-icon>
+        @if (shopping.cartCount()) {
+          <span class="pl-header__badge">{{ shopping.cartCount() }}</span>
+        }
+      </button>
+      <button class="pl-header__icon-btn pl-header__icon-btn--desktop" aria-label="Account">
+        <app-icon name="user" [size]="20"></app-icon>
+      </button>
+    </div>
+  </div>
+
+  @if (activeMega()) {
+    @for (item of navItems; track item.label) {
+      @if (item.mega && activeMega() === item.label) {
+        <div class="pl-mega">
+          <div class="pl-mega__inner pl-container">
+            <div class="pl-mega__cols">
+              @for (column of item.mega.columns; track $index) {
+                <ul class="pl-mega__col">
+                  @for (link of column; track link.label) {
+                    <li>
+                      <a class="pl-mega__link" [href]="link.href" (click)="onNavLeave()">
+                        {{ link.label }}
+                      </a>
+                    </li>
+                  }
+                </ul>
+              }
+            </div>
+            @if (item.mega.tiles.length) {
+              <div class="pl-mega__tiles">
+                @for (tile of item.mega.tiles; track tile.label) {
+                  <a class="pl-mega__tile" [href]="tile.href" (click)="onNavLeave()">
+                    <span class="pl-mega__tile-media">
+                      <app-lazy-image
+                        [src]="tile.image"
+                        [alt]="tile.label"
+                        [width]="160"
+                        [aspectRatio]="'3 / 4'"
+                      ></app-lazy-image>
+                    </span>
+                    <span class="pl-mega__tile-label">{{ tile.label }}</span>
+                  </a>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+    }
+  }
+</header>
+
+@if (searchOpen()) {
+  <app-search-overlay (closeEvent)="searchOpen.set(false)"></app-search-overlay>
+}
+
+@if (mobileMenuOpen()) {
+  <div class="pl-drawer-backdrop" (click)="closeMobile()"></div>
+  <aside class="pl-drawer" role="dialog" aria-modal="true" aria-label="Menu">
+    <div class="pl-drawer__head">
+      <span class="pl-drawer__logo">POWERLOOK</span>
+      <button class="pl-header__icon-btn" (click)="closeMobile()" aria-label="Close menu">
+        <app-icon name="close" [size]="22"></app-icon>
+      </button>
+    </div>
+    <nav class="pl-drawer__nav" aria-label="Mobile">
+      @for (item of navItems; track item.label) {
+        @if (item.mega) {
+          <div class="pl-drawer__item">
+            <button
+              class="pl-drawer__toggle"
+              (click)="toggleMobileItem(item.label)"
+              [attr.aria-expanded]="expandedItem() === item.label"
+            >
+              {{ item.label }}
+              <app-icon
+                name="chevron-down"
+                [size]="16"
+              ></app-icon>
+            </button>
+            @if (expandedItem() === item.label) {
+              <ul class="pl-drawer__sublist">
+                @for (link of item.mega.columns[0]; track link.label) {
+                  <li>
+                    <a class="pl-drawer__sublink" [href]="link.href" (click)="closeMobile()">
+                      {{ link.label }}
+                    </a>
+                  </li>
+                }
+              </ul>
+            }
+          </div>
+        } @else {
+          <a class="pl-drawer__toggle" [href]="item.href" (click)="closeMobile()">
+            {{ item.label }}
+          </a>
+        }
+      }
+    </nav>
+    <div class="pl-drawer__footer">
+      <a class="pl-drawer__utility" href="#" (click)="closeMobile()">Track order</a>
+      <a class="pl-drawer__utility" href="#" (click)="closeMobile()">Store locator</a>
+      <a class="pl-drawer__utility" href="#" (click)="closeMobile()">Contact Us</a>
+    </div>
+  </aside>
+}

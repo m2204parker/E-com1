@@ -1,0 +1,59 @@
+<div class="pl-fgroup" [class.pl-fgroup--open]="expanded()">
+  <button
+    class="pl-fgroup__header"
+    (click)="expanded.set(!expanded())"
+    [attr.aria-expanded]="expanded()"
+  >
+    <span class="pl-fgroup__header-label">
+      {{ group().label }}
+      @if (selectedCount()) {
+        <span class="pl-fgroup__header-badge">{{ selectedCount() }}</span>
+      }
+    </span>
+    <app-icon
+      class="pl-fgroup__chevron"
+      name="chevron-down"
+      [size]="16"
+    ></app-icon>
+  </button>
+
+  @if (expanded()) {
+    <ul class="pl-fgroup__body">
+      @for (option of visibleOptions(); track option.value) {
+        <li>
+          <label class="pl-fgroup__option">
+            <input
+              class="pl-visually-hidden"
+              type="checkbox"
+              [checked]="isSelected(option.value)"
+              (change)="toggle(option.value)"
+            />
+            <span class="pl-fgroup__box">
+              @if (isSelected(option.value)) {
+                <app-icon name="check" [size]="12"></app-icon>
+              }
+            </span>
+            <span class="pl-fgroup__label">{{ option.label }}</span>
+            <span class="pl-fgroup__count">{{ option.count }}</span>
+          </label>
+        </li>
+      }
+
+      @if (hiddenCount() > 0) {
+        <li>
+          <button class="pl-fgroup__more" (click)="showAll.set(true)">
+            See more ({{ hiddenCount() }})
+          </button>
+        </li>
+      }
+
+      @if (selectedCount() > 0) {
+        <li>
+          <button class="pl-fgroup__clear" (click)="clearGroup()">
+            Clear {{ group().label }}
+          </button>
+        </li>
+      }
+    </ul>
+  }
+</div>

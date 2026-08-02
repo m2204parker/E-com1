@@ -1,0 +1,108 @@
+<svg
+  class="pl-icon"
+  [attr.width]="size()"
+  [attr.height]="size()"
+  viewBox="0 0 24 24"
+  fill="none"
+  stroke="currentColor"
+  [attr.stroke-width]="strokeWidth()"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  aria-hidden="true"
+>
+  @switch (name()) {
+    @case ('search') {
+      <circle cx="11" cy="11" r="7"></circle>
+      <path d="M20 20l-3.4-3.4"></path>
+    }
+    @case ('cart') {
+      <circle cx="9" cy="20" r="1"></circle>
+      <circle cx="17" cy="20" r="1"></circle>
+      <path d="M2.5 3h2l2.2 12.2a1.5 1.5 0 0 0 1.5 1.3h7.8a1.5 1.5 0 0 0 1.5-1.2L19 8H6"></path>
+    }
+    @case ('heart') {
+      <path d="M12 20.3s-7.5-4.7-9.6-9C1 8 3.3 4.5 7 4.3c2.4-.1 4.3 1 5 2.7.7-1.7 2.6-2.8 5-2.7 3.7.2 6 3.7 4.6 7-2.1 4.3-9.6 9-9.6 9Z"></path>
+    }
+    @case ('heart-filled') {
+      <path
+        fill="currentColor"
+        stroke="none"
+        d="M12 20.3s-7.5-4.7-9.6-9C1 8 3.3 4.5 7 4.3c2.4-.1 4.3 1 5 2.7.7-1.7 2.6-2.8 5-2.7 3.7.2 6 3.7 4.6 7-2.1 4.3-9.6 9-9.6 9Z"
+      ></path>
+    }
+    @case ('user') {
+      <circle cx="12" cy="8" r="4"></circle>
+      <path d="M4 21c.6-3.9 4-6 8-6s7.4 2.1 8 6"></path>
+    }
+    @case ('menu') {
+      <path d="M3 6h18M3 12h18M3 18h18"></path>
+    }
+    @case ('close') {
+      <path d="M6 6l12 12M18 6L6 18"></path>
+    }
+    @case ('chevron-down') {
+      <path d="M6 9l6 6 6-6"></path>
+    }
+    @case ('chevron-right') {
+      <path d="M9 6l6 6-6 6"></path>
+    }
+    @case ('chevron-left') {
+      <path d="M15 6l-6 6 6 6"></path>
+    }
+    @case ('filter') {
+      <path d="M4 6h16M7 12h10M10 18h4"></path>
+    }
+    @case ('star') {
+      <path
+        d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1-5.4-2.9-5.4 2.9 1-6.1L3.2 9.5l6.1-.9L12 3Z"
+        fill="currentColor"
+        stroke="currentColor"
+      ></path>
+    }
+    @case ('plus') {
+      <path d="M12 5v14M5 12h14"></path>
+    }
+    @case ('check') {
+      <path d="M5 13l4 4L19 7"></path>
+    }
+    @case ('phone') {
+      <path
+        d="M5 4h3l1.5 4-2 1.5a12 12 0 0 0 7 7L16 14l4 1.5V19a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2Z"
+      ></path>
+    }
+    @case ('mail') {
+      <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+      <path d="M3 7l9 6 9-6"></path>
+    }
+    @case ('pin') {
+      <path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11Z"></path>
+      <circle cx="12" cy="10" r="2.5"></circle>
+    }
+    @case ('clock') {
+      <circle cx="12" cy="12" r="8.5"></circle>
+      <path d="M12 7.5V12l3 2"></path>
+    }
+    @case ('arrow-right') {
+      <path d="M4 12h16M14 6l6 6-6 6"></path>
+    }
+    @case ('facebook') {
+      <path
+        fill="currentColor"
+        stroke="none"
+        d="M13.5 21v-7h2.3l.4-3h-2.7V9.1c0-.9.3-1.5 1.6-1.5h1.2V4.9c-.3 0-1.1-.1-2-.1-2 0-3.3 1.2-3.3 3.4V11H8.5v3h2.5v7h2.5Z"
+      ></path>
+    }
+    @case ('instagram') {
+      <rect x="3.5" y="3.5" width="17" height="17" rx="4.5"></rect>
+      <circle cx="12" cy="12" r="3.5"></circle>
+      <circle cx="17" cy="7" r="0.6" fill="currentColor" stroke="none"></circle>
+    }
+    @case ('youtube') {
+      <path
+        fill="currentColor"
+        stroke="none"
+        d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12c0 1.6.1 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8c1.6.4 7.8.4 7.8.4s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.3-1.6.4-3.2.4-4.8s-.1-3.2-.4-4.8ZM10 15.2V8.8L15.6 12 10 15.2Z"
+      ></path>
+    }
+  }
+</svg>

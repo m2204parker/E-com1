@@ -1,0 +1,46 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.pl-lazy {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background: var(--pl-skeleton);
+}
+
+.pl-lazy__lqip {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  transition: filter 0.5s var(--pl-ease);
+
+  &--blur {
+    filter: blur(12px);
+    transform: scale(1.08);
+  }
+}
+
+.pl-lazy__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background: var(--pl-skeleton);
+
+  &--hover {
+    z-index: 2;
+  }
+}
+
+.pl-lazy__error {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: var(--pl-text-muted);
+  background: var(--pl-skeleton);
+}

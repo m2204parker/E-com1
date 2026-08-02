@@ -1,0 +1,31 @@
+:host {
+  display: block;
+}
+
+.pl-crumb {
+  font-size: 12px;
+  color: var(--pl-text-muted);
+
+  ol {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--pl-space-2);
+  }
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--pl-space-2);
+
+    app-icon {
+      color: var(--pl-text-muted);
+    }
+
+    a:hover {
+      color: var(--pl-black);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+  }
+}

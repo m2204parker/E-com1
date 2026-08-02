@@ -1,0 +1,46 @@
+<div class="pl-filters">
+  <div class="pl-filters__head">
+    <span class="pl-filters__title">Filters</span>
+    @if (hasActiveFilters()) {
+      <button class="pl-filters__reset" (click)="resetAll()">Reset</button>
+    }
+  </div>
+
+  <section class="pl-filters__price">
+    <h4 class="pl-filters__price-title">Price</h4>
+    <div class="pl-filters__price-inputs">
+      <label>
+        <span>From ₹</span>
+        <input
+          type="number"
+          min="0"
+          placeholder="Min"
+          [value]="from() ?? ''"
+          (input)="from.set(parseInput($event))"
+          (keydown.enter)="applyPrice()"
+        />
+      </label>
+      <label>
+        <span>To ₹</span>
+        <input
+          type="number"
+          min="0"
+          placeholder="Max"
+          [value]="to() ?? ''"
+          (input)="to.set(parseInput($event))"
+          (keydown.enter)="applyPrice()"
+        />
+      </label>
+    </div>
+    <button class="pl-filters__apply" (click)="applyPrice()">Apply</button>
+  </section>
+
+  <nav class="pl-filters__groups" aria-label="Product filters">
+    @for (group of store.facetGroups(); track group.id) {
+      <app-filter-group
+        [group]="group"
+        [defaultOpen]="defaultOpen(group.id)"
+      ></app-filter-group>
+    }
+  </nav>
+</div>

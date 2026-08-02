@@ -1,0 +1,105 @@
+<div class="pl-search" (keydown.escape)="closeEvent.emit()">
+  <div class="pl-search__backdrop" (click)="closeEvent.emit()"></div>
+  <div class="pl-search__panel" role="dialog" aria-modal="true" aria-label="Search">
+    <div class="pl-search__head">
+      <span class="pl-search__title">Search</span>
+      <button
+        class="pl-search__close"
+        (click)="closeEvent.emit()"
+        aria-label="Close search"
+      >
+        <app-icon name="close" [size]="22"></app-icon>
+      </button>
+    </div>
+
+    <label class="pl-search__field">
+      <app-icon name="search" [size]="18"></app-icon>
+      <input
+        #input
+        type="search"
+        placeholder="Search for products"
+        [value]="query()"
+        (input)="setQuery($any($event.target).value)"
+      />
+      @if (query()) {
+        <button class="pl-search__clear" (click)="setQuery('')" aria-label="Clear search">
+          <app-icon name="close" [size]="16"></app-icon>
+        </button>
+      }
+    </label>
+
+    @if (!query().trim()) {
+      <div class="pl-search__body">
+        <section class="pl-search__section">
+          <h3 class="pl-search__heading">Top Searches</h3>
+          <div class="pl-search__chips">
+            @for (term of topSearches; track term) {
+              <button class="pl-search__chip" (click)="setQuery(term)">
+                {{ term }}
+              </button>
+            }
+          </div>
+        </section>
+
+        <section class="pl-search__section">
+          <h3 class="pl-search__heading">Most searched products</h3>
+          @for (product of trending(); track product.id) {
+            <a class="pl-search__trending" href="#">
+              <app-lazy-image
+                [src]="product.images[0].src"
+                [alt]="product.title"
+                [width]="150"
+                [aspectRatio]="'1 / 1'"
+                [radius]="'8px'"
+              ></app-lazy-image>
+              <div class="pl-search__trending-info">
+                <span class="pl-search__trending-title">{{ product.title }}</span>
+                @if (product.price.compareAt) {
+                  <span class="pl-search__trending-price">
+                    {{ formatPrice(product.price.current) }}
+                    <del>{{ formatPrice(product.price.compareAt) }}</del>
+                  </span>
+                } @else {
+                  <span class="pl-search__trending-price">
+                    {{ formatPrice(product.price.current) }}
+                  </span>
+                }
+              </div>
+            </a>
+          } @empty {
+            <p class="pl-text-muted">No products yet.</p>
+          }
+        </section>
+      </div>
+    } @else {
+      <div class="pl-search__body">
+        @if (isSearching()) {
+          <p class="pl-text-muted">Searching&hellip;</p>
+        } @else if (!results().length) {
+          <p class="pl-text-muted">No results for &ldquo;{{ query() }}&rdquo;.</p>
+        } @else {
+          <p class="pl-text-muted">{{ results().length }} result(s) for &ldquo;{{ query() }}&rdquo;</p>
+          <div class="pl-search__results">
+            @for (product of results(); track product.id) {
+              <a class="pl-search__result" href="#">
+                <app-lazy-image
+                  [src]="product.images[0].src"
+                  [alt]="product.title"
+                  [width]="80"
+                  [aspectRatio]="'1 / 1'"
+                  [radius]="'8px'"
+                ></app-lazy-image>
+                <div class="pl-search__result-info">
+                  <span class="pl-search__result-title">{{ product.title }}</span>
+                  <span class="pl-search__result-price">
+                    {{ formatPrice(product.price.current) }}
+                  </span>
+                </div>
+              </a>
+            }
+          </div>
+        }
+      </div>
+    }
+  </div>
+</div>

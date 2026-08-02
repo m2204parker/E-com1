@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Redirecting&hellip; | Powerlook</title>
+    <script>
+      (function () {
+        var segment = location.pathname.split('/');
+        var base = segment[1] || '';
+        var rest = segment.slice(2).join('/');
+        var href =
+          base && rest
+            ? '/' + base + '/index.html?path=' + encodeURIComponent('/' + rest)
+            : '/';
+        sessionStorage.setItem('pl:redirect', rest || '/');
+        location.replace(href);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

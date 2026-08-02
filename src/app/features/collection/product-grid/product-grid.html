@@ -1,0 +1,29 @@
+@if (store.isInitialLoading()) {
+  <div class="pl-grid" aria-busy="true">
+    @for (item of skeletonItems; track item) {
+      <div class="pl-card pl-card--skeleton">
+        <div class="pl-skeleton" style="aspect-ratio: 4 / 5"></div>
+        <div class="pl-card--skeleton__lines">
+          <span class="pl-skeleton"></span>
+          <span class="pl-skeleton"></span>
+          <span class="pl-skeleton pl-skeleton--short"></span>
+        </div>
+      </div>
+    }
+  </div>
+} @else if (store.totalCount() === 0) {
+  <div class="pl-grid-empty">
+    <app-icon name="search" [size]="32"></app-icon>
+    <h3>No products found</h3>
+    <p>Try adjusting or resetting the filters.</p>
+    <button class="pl-grid-empty__reset" (click)="store.resetFilters()">
+      Reset filters
+    </button>
+  </div>
+} @else {
+  <div class="pl-grid">
+    @for (product of store.pagedProducts(); track product.id; let i = $index) {
+      <app-product-card [product]="product" [eager]="isEager(i)"></app-product-card>
+    }
+  </div>
+}

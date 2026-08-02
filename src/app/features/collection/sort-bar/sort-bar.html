@@ -1,0 +1,46 @@
+<div class="pl-sort">
+  <button
+    class="pl-sort__filters"
+    (click)="store.setMobileFiltersOpen(true)"
+  >
+    <app-icon name="filter" [size]="16"></app-icon>
+    Filters
+    @if (store.activeFacetCount()) {
+      <span class="pl-sort__filters-count">{{ store.activeFacetCount() }}</span>
+    }
+  </button>
+
+  <p class="pl-sort__count">
+    {{ store.totalCount() }} of {{ store.allCount() }} products
+  </p>
+
+  <div class="pl-sort__menu">
+    <button
+      class="pl-sort__toggle"
+      (click)="open.set(!open())"
+      [attr.aria-expanded]="open()"
+    >
+      Sort by: <span class="pl-sort__current">{{ currentLabel() }}</span>
+      <app-icon name="chevron-down" [size]="14"></app-icon>
+    </button>
+
+    @if (open()) {
+      <ul class="pl-sort__dropdown">
+        @for (option of options; track option.key) {
+          <li>
+            <button
+              class="pl-sort__option"
+              [class.pl-sort__option--active]="store.sortBy() === option.key"
+              (click)="select(option.key)"
+            >
+              {{ option.label }}
+              @if (store.sortBy() === option.key) {
+                <app-icon name="check" [size]="14"></app-icon>
+              }
+            </button>
+          </li>
+        }
+      </ul>
+    }
+  </div>
+</div>
