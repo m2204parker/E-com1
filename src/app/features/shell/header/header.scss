@@ -5,9 +5,23 @@
 }
 
 .pl-header {
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 80;
   background: var(--pl-white);
   border-bottom: 1px solid var(--pl-border);
+  transform: translateY(0);
+  transition:
+    transform 0.38s var(--pl-ease),
+    box-shadow 0.38s var(--pl-ease);
+}
+
+.pl-header--scrolled {
+  box-shadow: var(--pl-shadow-sm);
+}
+
+.pl-header--hidden {
+  transform: translateY(-100%);
 }
 
 .pl-header__row {

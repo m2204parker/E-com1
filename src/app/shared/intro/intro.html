@@ -1,0 +1,20 @@
+<div class="pl-intro" #panel>
+  <div class="pl-intro__inner">
+    <p class="pl-intro__word" #word aria-hidden="true">
+      @for (letter of letters; track $index) {
+        <span class="pl-intro__letter-mask">
+          <span class="pl-intro__letter">{{ letter === ' ' ? '\u00A0' : letter }}</span>
+        </span>
+      }
+    </p>
+
+    <div class="pl-intro__meta">
+      <span class="pl-intro__tag">Menswear &amp; more</span>
+      <span class="pl-intro__count" #count>0%</span>
+    </div>
+
+    <div class="pl-intro__bar">
+      <span class="pl-intro__bar-fill" #barFill></span>
+    </div>
+  </div>
+</div>

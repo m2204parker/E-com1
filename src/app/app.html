@@ -1,6 +1,12 @@
-<app-announcement-bar></app-announcement-bar>
-<app-site-header></app-site-header>
-<main class="pl-main">
-  <router-outlet></router-outlet>
-</main>
-<app-site-footer></app-site-footer>
+@if (!introDone()) {
+  <app-intro (done)="onIntroDone()"></app-intro>
+}
+
+<div class="pl-shell" #shell>
+  <app-announcement-bar></app-announcement-bar>
+  <app-site-header></app-site-header>
+  <main class="pl-main">
+    <router-outlet></router-outlet>
+  </main>
+  <app-site-footer></app-site-footer>
+</div>
