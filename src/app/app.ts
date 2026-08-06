@@ -6,7 +6,7 @@ import { SmoothScrollService } from '@core/services/smooth-scroll.service';
 import { AnnouncementBar } from '@features/shell/announcement-bar/announcement-bar';
 import { SiteFooter } from '@features/shell/footer/footer';
 import { SiteHeader } from '@features/shell/header/header';
-import { Intro } from '@shared/intro/intro';
+import { Intro } from '@shared/Intro/intro';
 
 @Component({
   selector: 'app-root',
