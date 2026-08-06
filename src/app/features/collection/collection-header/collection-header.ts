@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 
 import { CollectionStore } from '@core/state/collection.store';
 import { ProductCategory } from '@core/models/product';
+import { ScrollReveal } from '@shared/scroll-reveal/scroll-reveal.directive';
 
 interface Tab {
   label: string;
@@ -10,6 +11,7 @@ interface Tab {
 
 @Component({
   selector: 'app-collection-header',
+  imports: [ScrollReveal],
   templateUrl: './collection-header.html',
   styleUrl: './collection-header.scss',
 })

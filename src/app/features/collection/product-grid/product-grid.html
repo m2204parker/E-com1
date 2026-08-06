@@ -21,7 +21,7 @@
     </button>
   </div>
 } @else {
-  <div class="pl-grid">
+  <div class="pl-grid" appReveal="stagger" appRevealChildren=".pl-card">
     @for (product of store.pagedProducts(); track product.id; let i = $index) {
       <app-product-card [product]="product" [eager]="isEager(i)"></app-product-card>
     }

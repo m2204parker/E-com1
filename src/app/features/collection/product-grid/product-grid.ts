@@ -2,11 +2,12 @@ import { Component, inject } from '@angular/core';
 
 import { CollectionStore } from '@core/state/collection.store';
 import { Icon } from '@shared/icon/icon';
+import { ScrollReveal } from '@shared/scroll-reveal/scroll-reveal.directive';
 import { ProductCard } from '../product-card/product-card';
 
 @Component({
   selector: 'app-product-grid',
-  imports: [Icon, ProductCard],
+  imports: [Icon, ProductCard, ScrollReveal],
   templateUrl: './product-grid.html',
   styleUrl: './product-grid.scss',
 })

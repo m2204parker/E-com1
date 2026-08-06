@@ -1,4 +1,9 @@
-<header class="pl-header" (mouseleave)="onNavLeave()">
+<header
+  class="pl-header"
+  [class.pl-header--hidden]="hidden()"
+  [class.pl-header--scrolled]="scrolled()"
+  (mouseleave)="onNavLeave()"
+>
   <div class="pl-header__row">
     <button
       class="pl-header__icon-btn pl-header__burger"

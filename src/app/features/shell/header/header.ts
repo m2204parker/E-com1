@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, HostListener, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import { NAV_ITEMS } from '@core/data/navigation';
@@ -21,6 +21,27 @@ export class SiteHeader {
   protected readonly mobileMenuOpen = signal(false);
   protected readonly searchOpen = signal(false);
   protected readonly expandedItem = signal<string | null>(null);
+
+  /** Header slides away on scroll-down, reappears on scroll-up. */
+  protected readonly hidden = signal(false);
+  /** Picks up a subtle shadow once the page has scrolled past the top. */
+  protected readonly scrolled = signal(false);
+
+  private lastScrollY = 0;
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    const y = window.scrollY;
+    this.scrolled.set(y > 8);
+
+    const delta = y - this.lastScrollY;
+    if (y > 140 && delta > 4 && !this.mobileMenuOpen() && !this.activeMega()) {
+      this.hidden.set(true);
+    } else if (delta < -4 || y < 140) {
+      this.hidden.set(false);
+    }
+    this.lastScrollY = y;
+  }
 
   onNavEnter(label: string): void {
     this.activeMega.set(label);
