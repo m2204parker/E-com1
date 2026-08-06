@@ -23,7 +23,7 @@ export class Intro implements AfterViewInit, OnDestroy {
   @ViewChild('barFill', { static: true }) barFillRef!: ElementRef<HTMLElement>;
   @ViewChild('count', { static: true }) countRef!: ElementRef<HTMLElement>;
 
-  protected readonly letters = 'POWERLOOK'.split('');
+  protected readonly letters = 'WRAP'.split('');
 
   private timeline: gsap.core.Timeline | null = null;
 
