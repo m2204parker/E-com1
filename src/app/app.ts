@@ -10,7 +10,7 @@ import { SiteFooter } from '@features/shell/footer/footer';
 import { SiteHeader } from '@features/shell/header/header';
 import { ProfileDrawer } from '@features/shell/profile-drawer/profile-drawer';
 import { WishlistDrawer } from '@features/shell/wishlist-drawer/wishlist-drawer';
-import { Intro } from '@shared/Intro/intro';
+import { Intro } from '@shared/intro/intro';
 
 @Component({
   selector: 'app-root',
