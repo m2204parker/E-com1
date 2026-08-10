@@ -1,0 +1,35 @@
+<app-drawer-panel
+  [open]="ui.isOpen('profile')"
+  label="My account"
+  (closed)="ui.close()"
+  [showFooter]="false"
+>
+  <span panelTitle>My Account</span>
+
+  <div class="pl-profile-greet">
+    <span class="pl-profile-avatar">
+      <app-icon name="user" [size]="22"></app-icon>
+    </span>
+    <div>
+      <p class="pl-profile-greet__title">Hey there!</p>
+      <p class="pl-profile-greet__sub">Sign in to track orders, save addresses &amp; checkout faster.</p>
+    </div>
+  </div>
+
+  <div class="pl-profile-cta">
+    <button class="pl-btn pl-btn--primary">Sign In</button>
+    <button class="pl-btn pl-btn--ghost">Create Account</button>
+  </div>
+
+  <nav class="pl-profile-links" aria-label="Account">
+    @for (link of links; track link.label) {
+      <button class="pl-profile-link" (click)="onLinkClick(link)">
+        <span class="pl-profile-link__left">
+          <app-icon [name]="link.icon" [size]="18"></app-icon>
+          {{ link.label }}
+        </span>
+        <app-icon name="chevron-right" [size]="16"></app-icon>
+      </button>
+    }
+  </nav>
+</app-drawer-panel>

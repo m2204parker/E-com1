@@ -2,6 +2,7 @@ import { Component, computed, inject, input, signal } from '@angular/core';
 
 import { Product } from '@core/models/product';
 import { ShoppingStore } from '@core/state/shopping.store';
+import { UiStore } from '@core/state/ui.store';
 import { discountPercent, formatPrice } from '@core/utils/format';
 import { Icon } from '@shared/icon/icon';
 import { LazyImage } from '@shared/lazy-image/lazy-image';
@@ -18,6 +19,7 @@ export class ProductCard {
   readonly eager = input<boolean>(false);
 
   protected readonly shopping = inject(ShoppingStore);
+  protected readonly ui = inject(UiStore);
   protected readonly added = signal(false);
   protected readonly formatPrice = formatPrice;
   protected readonly isWishlisted = () =>
@@ -34,7 +36,14 @@ export class ProductCard {
   });
 
   toggleWishlist(): void {
-    this.shopping.toggleWishlist(this.product().id);
+    const product = this.product();
+    this.shopping.toggleWishlist({
+      productId: product.id,
+      title: product.title,
+      price: product.price.current,
+      image: product.images[0]?.src ?? '',
+      handle: product.handle,
+    });
   }
 
   addToCart(): void {
@@ -47,9 +56,12 @@ export class ProductCard {
       title: product.title,
       size: variant.size,
       price: product.price.current,
+      image: product.images[0]?.src ?? '',
+      handle: product.handle,
     });
 
     this.added.set(true);
+    this.ui.open('cart');
     setTimeout(() => this.added.set(false), 1400);
   }
 }

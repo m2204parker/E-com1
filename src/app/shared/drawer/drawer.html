@@ -1,0 +1,24 @@
+<div
+  class="pl-drawer-backdrop"
+  [class.pl-drawer-backdrop--open]="isOpen()"
+  (click)="closed.emit()"
+></div>
+
+<aside
+  class="pl-drawer"
+  [class.pl-drawer--open]="isOpen()"
+  role="dialog"
+  [attr.aria-hidden]="!isOpen()"
+  aria-modal="true"
+>
+  <header class="pl-drawer__head">
+    <h2 class="pl-drawer__title">{{ title() }}</h2>
+    <button class="pl-drawer__close" (click)="closed.emit()" aria-label="Close">
+      <app-icon name="close" [size]="18"></app-icon>
+    </button>
+  </header>
+
+  <div class="pl-drawer__body">
+    <ng-content></ng-content>
+  </div>
+</aside>

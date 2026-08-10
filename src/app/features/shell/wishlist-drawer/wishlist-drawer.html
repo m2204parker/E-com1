@@ -1,0 +1,52 @@
+<app-drawer-panel
+  [open]="ui.isOpen('wishlist')"
+  label="Wishlist"
+  (closed)="ui.close()"
+  [showFooter]="false"
+>
+  <span panelTitle>Wishlist ({{ shopping.wishlistCount() }})</span>
+
+  @if (shopping.wishlistItems().length) {
+    <ul class="pl-wish-list">
+      @for (item of shopping.wishlistItems(); track item.productId) {
+        <li class="pl-wish-item">
+          <app-lazy-image
+            class="pl-wish-item__media"
+            [src]="item.image"
+            [alt]="item.title"
+            [eager]="true"
+            [width]="180"
+            [aspectRatio]="'4 / 5'"
+          ></app-lazy-image>
+
+          <div class="pl-wish-item__info">
+            <p class="pl-wish-item__title">{{ item.title }}</p>
+            <p class="pl-wish-item__price">{{ formatPrice(item.price) }}</p>
+
+            <div class="pl-wish-item__actions">
+              <button class="pl-wish-item__add" (click)="shopping.moveToCart(item)">
+                <app-icon name="cart" [size]="14"></app-icon>
+                Add to cart
+              </button>
+              <button
+                class="pl-wish-item__remove"
+                (click)="shopping.removeFromWishlist(item.productId)"
+                aria-label="Remove {{ item.title }} from wishlist"
+              >
+                <app-icon name="trash" [size]="16"></app-icon>
+              </button>
+            </div>
+          </div>
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="pl-panel-empty">
+      <app-icon name="heart" [size]="32"></app-icon>
+      <p>No liked items yet.<br />Tap the heart on a product to save it here.</p>
+      <button class="pl-btn pl-btn--ghost" style="width: auto; padding-inline: 20px" (click)="ui.close()">
+        Continue shopping
+      </button>
+    </div>
+  }
+</app-drawer-panel>

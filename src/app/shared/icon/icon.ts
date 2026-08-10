@@ -14,6 +14,8 @@ export type IconName =
   | 'filter'
   | 'star'
   | 'plus'
+  | 'minus'
+  | 'trash'
   | 'check'
   | 'phone'
   | 'mail'

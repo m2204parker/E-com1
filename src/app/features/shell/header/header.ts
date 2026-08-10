@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 
 import { NAV_ITEMS } from '@core/data/navigation';
 import { ShoppingStore } from '@core/state/shopping.store';
+import { UiStore } from '@core/state/ui.store';
 import { Icon } from '@shared/icon/icon';
 import { LazyImage } from '@shared/lazy-image/lazy-image';
 import { SearchOverlay } from '../search-overlay/search-overlay';
@@ -16,6 +17,7 @@ import { SearchOverlay } from '../search-overlay/search-overlay';
 export class SiteHeader {
   protected readonly navItems = NAV_ITEMS;
   protected readonly shopping = inject(ShoppingStore);
+  protected readonly ui = inject(UiStore);
 
   protected readonly activeMega = signal<string | null>(null);
   protected readonly mobileMenuOpen = signal(false);

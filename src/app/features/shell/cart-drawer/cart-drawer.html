@@ -1,0 +1,77 @@
+<app-drawer-panel
+  [open]="ui.isOpen('cart')"
+  label="Shopping cart"
+  (closed)="ui.close()"
+>
+  <span panelTitle>Cart ({{ shopping.cartCount() }})</span>
+
+  @if (shopping.lines().length) {
+    <ul class="pl-cart-list">
+      @for (line of shopping.lines(); track line.productId + line.size) {
+        <li class="pl-cart-item">
+          <app-lazy-image
+            class="pl-cart-item__media"
+            [src]="line.image"
+            [alt]="line.title"
+            [eager]="true"
+            [width]="180"
+            [aspectRatio]="'4 / 5'"
+          ></app-lazy-image>
+
+          <div class="pl-cart-item__info">
+            <p class="pl-cart-item__title">{{ line.title }}</p>
+            <p class="pl-cart-item__size">Size: {{ line.size }}</p>
+            <p class="pl-cart-item__price">{{ formatPrice(line.price) }}</p>
+
+            <div class="pl-qty">
+              <button
+                class="pl-qty__btn"
+                (click)="shopping.decrementQty(line.productId, line.size)"
+                aria-label="Decrease quantity"
+              >
+                <app-icon name="minus" [size]="12"></app-icon>
+              </button>
+              <span class="pl-qty__value">{{ line.qty }}</span>
+              <button
+                class="pl-qty__btn"
+                (click)="shopping.incrementQty(line.productId, line.size)"
+                aria-label="Increase quantity"
+              >
+                <app-icon name="plus" [size]="12"></app-icon>
+              </button>
+            </div>
+          </div>
+
+          <button
+            class="pl-cart-item__remove"
+            (click)="shopping.removeFromCart(line.productId, line.size)"
+            aria-label="Remove {{ line.title }} from cart"
+          >
+            <app-icon name="trash" [size]="17"></app-icon>
+          </button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <div class="pl-panel-empty">
+      <app-icon name="cart" [size]="32"></app-icon>
+      <p>Your cart is empty.<br />Add something you'll love.</p>
+      <button class="pl-btn pl-btn--ghost" style="width: auto; padding-inline: 20px" (click)="ui.close()">
+        Continue shopping
+      </button>
+    </div>
+  }
+
+  <div panelFooter>
+    <div class="pl-cart-subtotal">
+      <span>Subtotal</span>
+      <span>{{ formatPrice(shopping.cartSubtotal()) }}</span>
+    </div>
+    <button class="pl-btn pl-btn--primary" [disabled]="!shopping.lines().length">
+      Buy Now
+    </button>
+    <button class="pl-btn pl-btn--ghost" [disabled]="!shopping.lines().length" (click)="ui.close()">
+      Continue Shopping
+    </button>
+  </div>
+</app-drawer-panel>

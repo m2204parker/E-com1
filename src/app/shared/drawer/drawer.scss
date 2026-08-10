@@ -1,0 +1,78 @@
+.pl-drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  background: var(--pl-overlay);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.32s var(--pl-ease),
+    visibility 0.32s var(--pl-ease);
+}
+
+.pl-drawer-backdrop--open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.pl-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 121;
+  width: min(420px, 100vw);
+  display: flex;
+  flex-direction: column;
+  background: var(--pl-surface);
+  box-shadow: var(--pl-shadow-lg);
+  transform: translateX(100%);
+  transition: transform 0.4s var(--pl-ease);
+  will-change: transform;
+}
+
+.pl-drawer--open {
+  transform: translateX(0);
+}
+
+.pl-drawer__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--pl-space-5) var(--pl-space-5);
+  border-bottom: 1px solid var(--pl-border);
+  flex-shrink: 0;
+}
+
+.pl-drawer__title {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.pl-drawer__close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--pl-radius-full);
+  background: transparent;
+  color: var(--pl-text);
+  transition: background 0.2s var(--pl-ease);
+}
+
+.pl-drawer__close:hover {
+  background: var(--pl-bg);
+}
+
+.pl-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--pl-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pl-space-4);
+}
